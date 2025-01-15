@@ -15,21 +15,36 @@ const GlobalStyle = createGlobalStyle`
 const Container = styled.div`
   max-width: 1000px;
   margin: 0 auto;
-  padding: 3rem;
+  padding: 1.5rem;
   background: rgba(34, 34, 34, 0.8);
   border-radius: 15px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: row;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    padding: 1rem;
+    margin: 1rem;
+  }
 `
 
 const LeftColumn = styled.div`
   flex: 1;
   margin-right: 2rem;
+
+  @media (max-width: 768px) {
+    margin-right: 0;
+    margin-bottom: 1.5rem;
+  }
 `
 
 const RightColumn = styled.div`
   flex: 1;
+
+  @media (max-width: 768px) {
+    padding: 0 1rem;
+  }
 `
 
 const IllustrationImage = styled.img`
@@ -51,6 +66,14 @@ const Title = styled.h1`
   color: #d4af37;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
   line-height: 1;
+
+  @media (max-width: 768px) {
+    font-size: 2.2rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1.8rem;
+  }
 `
 
 const Subtitle = styled.p`
@@ -58,6 +81,10 @@ const Subtitle = styled.p`
   font-style: italic;
   color: #a0a0a0;
   margin-top: 0.2rem;
+
+  @media (max-width: 480px) {
+    font-size: 1rem;
+  }
 `
 
 const Section = styled.section`
@@ -71,6 +98,10 @@ const SectionTitle = styled.h2`
   margin-bottom: 1rem;
   color: #b8860b;
   line-height: 1.1;
+
+  @media (max-width: 768px) {
+    font-size: 1.6rem;
+  }
 `
 
 const List = styled.ul`
@@ -89,6 +120,11 @@ const StyledLink = styled(Link)`
   transition: all 0.3s ease;
   position: relative;
   line-height: 1.1;
+
+  @media (max-width: 480px) {
+    font-size: 1rem;
+  }
+
   &:before {
     content: '✧';
     position: absolute;
@@ -102,6 +138,12 @@ const StyledLink = styled(Link)`
     &:before {
       opacity: 1;
       left: -15px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    &:before {
+      display: none;
     }
   }
 `

@@ -21,10 +21,12 @@ const HeroContainer = styled.div`
   flex-direction: column;
   align-items: center;
   background-color: #121212;
-  padding: 2rem;
+  padding: 1rem;
   position: relative;
-
+  min-height: 80vh;
+  
   @media (min-width: 768px) {
+    padding: 2rem;
     flex-direction: row;
     justify-content: space-between;
   }
@@ -33,11 +35,25 @@ const HeroContainer = styled.div`
 const HeroContent = styled.div`
   flex: 1;
   text-align: center;
-  margin-bottom: 1rem;
+  margin: 2rem 0;
+  
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    
+    @media (max-width: 768px) {
+      font-size: 2rem;
+    }
+  }
+
+  p {
+    font-size: 1.2rem;
+    color: #a0a0a0;
+  }
 
   @media (min-width: 768px) {
     text-align: left;
-    margin-bottom: 0;
+    margin: 0;
   }
 `
 
@@ -64,23 +80,27 @@ const FloatingText = styled.div`
 `
 
 const ContentContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
+  display: grid;
+  gap: 1.5rem;
   background-color: #0a0a0a;
-  padding: 2rem;
-
+  padding: 1rem;
+  
   @media (min-width: 768px) {
-    flex-direction: row;
-    justify-content: space-between;
+    padding: 2rem;
+    grid-template-columns: repeat(2, 1fr);
   }
 `
 
 const Section = styled.section`
-  flex: 1;
-  padding: 1rem;
+  padding: 1.5rem;
   background-color: #1a1a1a;
-  border-radius: 8px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+  
+  &:hover {
+    transform: translateY(-2px);
+  }
 `
 
 const LanguageButtonContainer = styled.div`
@@ -98,7 +118,7 @@ const LanguageLabel = styled.span`
 const ProjectsSection = styled(Section)`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   position: relative;
   padding-bottom: 50px;
 `
@@ -110,35 +130,44 @@ const ProjectsTitle = styled.h2`
 
 const ProjectsList = styled.ul`
   list-style-type: none;
-  padding-left: 20px;
+  padding-left: 0;
   margin-top: 0.5rem;
-  text-align: justify;
+  text-align: left;
   width: 100%;
 `
 
 const ProjectItem = styled.li`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   margin-bottom: 10px;
 `
 
-const ProjectLink = styled(Link)`
+const ProjectLink = styled.a`
   text-decoration: none;
   color: #d0d0d0;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   width: 100%;
-
+  padding: 0.75rem;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  
   &:hover {
-    text-decoration: underline;
+    background-color: #2a2a2a;
     color: #ffffff;
+    transform: translateX(5px);
   }
 
   &::after {
     content: '→';
     margin-left: 10px;
+    transition: transform 0.2s ease;
+  }
+  
+  &:hover::after {
+    transform: translateX(5px);
   }
 `
 
@@ -200,13 +229,24 @@ const EmailLink = styled.a`
   bottom: 1rem;
   right: 1rem;
   text-decoration: none;
-  color: #e0e0e0;
-  background-color: #222;
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
+  color: #ffffff;
+  background-color: #2d2d2d;
+  padding: 0.75rem 1.25rem;
+  border-radius: 25px;
+  font-weight: 500;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   
   &:hover {
-    background-color: #333;
+    background-color: #3d3d3d;
+    transform: translateY(-2px);
+  }
+  
+  @media (max-width: 768px) {
+    bottom: 0;
+    right: 0;
+    left: 0;
+    border-radius: 0;
+    text-align: center;
   }
 `
 
@@ -240,7 +280,7 @@ function App() {
       resumeLink: "View My Resume",
       projectsTitle: "Projects",
       projects: [
-        { name: "Neural Networks used in cristalography molecule classification", route: "/project1" },
+        { name: "Neural Networks used in cristalography molecule classification", url: "https://raw.githubusercontent.com/USPCodeLabSanca/ML_Chem/master/Documentation/Documentation.pdf" },
         { name: "Neural Networks for IR Spectroscopy", route: "/project2" }
       ],
       blogLink: "Read My Blog",
@@ -258,7 +298,7 @@ function App() {
       resumeLink: "Ver Meu Currículo",
       projectsTitle: "Projetos",
       projects: [
-        { name: "Redes Neurais usadas na classificação de moléculas em cristalografia", route: "/project1" },
+        { name: "Redes Neurais usadas na classificação de moléculas em cristalografia", url: "https://raw.githubusercontent.com/USPCodeLabSanca/ML_Chem/master/Documentation/Documentation.pdf" },
         { name: "Redes Neurais para Espectroscopia IR", route: "/project2" }
       ],
       blogLink: "Leia Meu Blog",
@@ -292,9 +332,15 @@ function App() {
           <ProjectsList>
             {content[language].projects.map((project, index) => (
               <ProjectItem key={index}>
-                <ProjectLink to={project.route}>
-                  {project.name}
-                </ProjectLink>
+                {project.url ? (
+                  <ProjectLink href={project.url} target="_blank" rel="noopener noreferrer">
+                    {project.name}
+                  </ProjectLink>
+                ) : (
+                  <ProjectLink as={Link} to={project.route}>
+                    {project.name}
+                  </ProjectLink>
+                )}
               </ProjectItem>
             ))}
           </ProjectsList>
