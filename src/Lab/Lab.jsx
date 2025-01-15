@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
+import L1 from './L1/L1'
 
 const Container = styled.div`
   height: 100vh;
@@ -42,6 +43,7 @@ const BackButton = styled(Link)`
   &:hover {
     background: rgba(0, 255, 0, 0.1);
     box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+    color: #fff;
   }
 
   &:before {
@@ -90,6 +92,10 @@ const OuterBox = styled.div`
 const LeftBox = styled(OuterBox)`
   margin-left: 0;
   margin-right: 2rem;
+  padding: 0.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `
 
 const Grid = styled.div`
@@ -97,7 +103,10 @@ const Grid = styled.div`
   flex-direction: column;
   gap: 0rem;
   width: 100%;
-  padding: 1rem 0;
+  padding: 0;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
 `
 
 const ProjectCard = styled.div`
@@ -180,6 +189,7 @@ const ProjectLink = styled(Link)`
   &:hover {
     background: rgba(0, 255, 0, 0.1);
     box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+    color: #fff;
     
     &:before {
       transform: translateX(100%);
@@ -188,11 +198,13 @@ const ProjectLink = styled(Link)`
 `
 
 const Lab = () => {
+  const [selectedProject, setSelectedProject] = React.useState(null)
+
   const projects = [
     {
-      title: "Neural Net Quest",
-      description: "[SYS.AI.001] Neural network visualization and training interface. Real-time synapse mapping and weight optimization protocols active.",
-      link: "/project1"
+      title: "AI MNIST",
+      description: "[SYS.AI.001] Neural network handwriting recognition interface. Draw digits and watch the AI predict in real-time.",
+      link: "/L1"
     },
     {
       title: "Quantum Pixels", 
@@ -211,7 +223,7 @@ const Lab = () => {
       <BackButton to="/">RETURN</BackButton>
       <LeftBox>
         <Grid>
-          {/* Left box content */}
+          {selectedProject === 'L1' && <L1 />}
         </Grid>
       </LeftBox>
       <OuterBox>
@@ -220,7 +232,15 @@ const Lab = () => {
             <ProjectCard key={index}>
               <ProjectTitle>{project.title}</ProjectTitle>
               <ProjectDescription>{project.description}</ProjectDescription>
-              <ProjectLink to={project.link}>INITIALIZE</ProjectLink>
+              <ProjectLink 
+                to="#" 
+                onClick={(e) => {
+                  e.preventDefault();
+                  setSelectedProject(project.link.substring(1));
+                }}
+              >
+                INITIALIZE
+              </ProjectLink>
             </ProjectCard>
           ))}
         </Grid>

@@ -188,6 +188,10 @@ const BlogLink = styled(Link)`
   }
 `
 
+const LabLink = styled(BlogLink)`
+  bottom: 50px;
+`
+
 const JustifiedText = styled.p`
   text-align: justify;
   color: #d0d0d0;
@@ -284,6 +288,7 @@ function App() {
         { name: "Neural Networks for IR Spectroscopy", route: "/project2" }
       ],
       blogLink: "Read My Blog",
+      labLink: "Visit My Lab",
       socialLinks: "Find me on X.com and GitHub:",
       changeLanguage: "Change Language",
       challengeMe: "Challenge me on",
@@ -302,6 +307,7 @@ function App() {
         { name: "Redes Neurais para Espectroscopia IR", route: "/project2" }
       ],
       blogLink: "Leia Meu Blog",
+      labLink: "Visite Meu Lab",
       socialLinks: "Me encontre no X.com e GitHub:",
       changeLanguage: "Mudar Idioma",
       challengeMe: "Me desafie:",
@@ -344,6 +350,9 @@ function App() {
               </ProjectItem>
             ))}
           </ProjectsList>
+          <LabLink to="/lab">
+            {content[language].labLink}
+          </LabLink>
           <BlogLink to="/blog">
             {content[language].blogLink}
           </BlogLink>
