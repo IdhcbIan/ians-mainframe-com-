@@ -120,7 +120,7 @@ const ProjectsSection = styled(Section)`
   flex-direction: column;
   align-items: flex-start;
   position: relative;
-  padding-bottom: 50px;
+  padding-bottom: 120px;
 `
 
 const ProjectsTitle = styled.h2`
@@ -178,10 +178,13 @@ const BlogLink = styled(Link)`
   transform: translateX(-50%);
   text-decoration: none;
   color: #e0e0e0;
-  padding: 10px 20px;
+  padding: 12px 30px;
+  width: 80%;
+  text-align: center;
   background-color: #222;
   border-radius: 5px;
   transition: background-color 0.3s;
+  font-size: 1.1em;
 
   &:hover {
     background-color: #333;
@@ -189,7 +192,7 @@ const BlogLink = styled(Link)`
 `
 
 const LabLink = styled(BlogLink)`
-  bottom: 50px;
+  bottom: 60px;
 `
 
 const JustifiedText = styled.p`
@@ -254,7 +257,6 @@ const EmailLink = styled.a`
   }
 `
 
-// New styled component for the about section links
 const AboutLink = styled(Link)`
   text-decoration: none;
   color: #d0d0d0;
@@ -284,8 +286,8 @@ function App() {
       resumeLink: "View My Resume",
       projectsTitle: "Projects",
       projects: [
-        { name: "Neural Networks used in cristalography molecule classification", url: "https://raw.githubusercontent.com/USPCodeLabSanca/ML_Chem/master/Documentation/Documentation.pdf" },
-        { name: "Neural Networks for IR Spectroscopy", route: "/project2" }
+        { name: "Neural Networks for IR Spectroscopy in Organic Chemistry", url: "https://raw.githubusercontent.com/USPCodeLabSanca/ML_Chem/master/Documentation/Documentation.pdf" },
+        { name: "Molecular Structure Prediction using Neural Networks", route: "/project2" }
       ],
       blogLink: "Read My Blog",
       labLink: "Visit My Lab",
@@ -303,8 +305,8 @@ function App() {
       resumeLink: "Ver Meu Currículo",
       projectsTitle: "Projetos",
       projects: [
-        { name: "Redes Neurais usadas na classificação de moléculas em cristalografia", url: "https://raw.githubusercontent.com/USPCodeLabSanca/ML_Chem/master/Documentation/Documentation.pdf" },
-        { name: "Redes Neurais para Espectroscopia IR", route: "/project2" }
+        { name: "Redes Neurais para Espectroscopia IR em Química Orgânica", url: "https://raw.githubusercontent.com/USPCodeLabSanca/ML_Chem/master/Documentation/Documentation.pdf" },
+        { name: "Molecular Structure Prediction using Neural Networks", route: "/project2" }
       ],
       blogLink: "Leia Meu Blog",
       labLink: "Visite Meu Lab",

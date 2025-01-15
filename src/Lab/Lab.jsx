@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import L1 from './L1/L1'
+import L2 from './L2/L2'
 
 const Container = styled.div`
   height: 100vh;
@@ -91,7 +92,7 @@ const OuterBox = styled.div`
 
 const LeftBox = styled(OuterBox)`
   margin-left: 0;
-  margin-right: 2rem;
+  margin-right: 0.5rem;
   padding: 0.1rem;
   display: flex;
   align-items: center;
@@ -101,24 +102,28 @@ const LeftBox = styled(OuterBox)`
 const Grid = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0rem;
+  gap: 0.5rem;
   width: 100%;
-  padding: 0;
-  height: 100%;
+  max-width: 90%;
+  padding: 1rem;
+  height: ${props => props.isProjectGrid ? '100%' : 'auto'};
   align-items: center;
-  justify-content: center;
+  margin: 0 auto;
+  justify-content: ${props => props.isProjectGrid ? 'center' : 'flex-start'};
 `
 
 const ProjectCard = styled.div`
   background: rgba(0, 0, 0, 0.9);
   border: 1px solid #0f0;
-  padding: 1rem;
+  padding: 0.25rem;
+  margin: 0.5rem 0;
   box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
   transition: all 0.2s ease;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   position: relative;
+  width: 100%;
   
   &:before {
     content: '';
@@ -203,8 +208,13 @@ const Lab = () => {
   const projects = [
     {
       title: "AI MNIST",
-      description: "[SYS.AI.001] Neural network handwriting recognition interface. Draw digits and watch the AI predict in real-time.",
+      description: "Neural network handwriting recognition interface. Draw digits and watch the AI predict in real-time.",
       link: "/L1"
+    },
+    {
+      title: "Game of Life",
+      description: "Conway's Game of Life simulation with interactive cell manipulation.",
+      link: "/L2"
     },
     {
       title: "Quantum Pixels", 
@@ -224,6 +234,7 @@ const Lab = () => {
       <LeftBox>
         <Grid>
           {selectedProject === 'L1' && <L1 />}
+          {selectedProject === 'L2' && <L2 />}
         </Grid>
       </LeftBox>
       <OuterBox>
