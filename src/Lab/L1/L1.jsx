@@ -45,6 +45,11 @@ const Button = styled.button`
   }
 `
 
+const ButtonContainer = styled.div`
+  display: flex;
+  gap: 10px;
+`
+
 const L1 = () => {
   const canvasRef = useRef(null)
   const [isDrawing, setIsDrawing] = useState(false)
@@ -126,39 +131,41 @@ const L1 = () => {
     setIsDrawing(false)
   }
 
+  const handleClear = () => {
+    setGrid(Array(GRID_SIZE).fill().map(() => Array(GRID_SIZE).fill(0)))
+    setPrediction(null)
+    const ctx = canvasRef.current.getContext('2d')
+    drawGrid(ctx)
+  }
+
   const handleRead = async () => {
     try {
       setPrediction('Loading...')
       const flatGrid = grid.flat()
       
-      // Make the POST request directly without separate OPTIONS
-      const response = await fetch('https://ata420xlj9.execute-api.sa-east-1.amazonaws.com/default/MNIST_Inference', {
+      const response = await fetch('https://of4e4p05kg.execute-api.sa-east-1.amazonaws.com/default/MNIST2/Predict', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          'Origin': window.location.origin
         },
-        mode: 'cors',
-        body: JSON.stringify({ body: flatGrid }) // Simplified payload structure
+        body: JSON.stringify({ data: flatGrid }) // Send the flattened grid data
       })
 
       if (!response.ok) {
-        const errorText = await response.text()
-        console.error('API Error:', response.status, errorText)
-        throw new Error(`API returned ${response.status}: ${errorText}`)
+        throw new Error(`HTTP error! status: ${response.status}`)
       }
 
       const data = await response.json()
       console.log('API Response:', data)
       
-      // Handle both possible response formats
-      const predictedDigit = data.predicted_digit || (data.body && JSON.parse(data.body).predicted_digit)
-      if (predictedDigit === undefined) {
+      // Handle the prediction response
+      if (data.body && data.body.prediction !== undefined) {
+        setPrediction(data.body.prediction)
+      } else if (data.prediction !== undefined) {
+        setPrediction(data.prediction)
+      } else {
         throw new Error('Invalid response format from API')
       }
-
-      setPrediction(predictedDigit)
     } catch (error) {
       console.error('Error reading digit:', error)
       setPrediction(`Error: ${error.message}`)
@@ -179,7 +186,10 @@ const L1 = () => {
         onMouseUp={handleMouseUp}
         onMouseLeave={handleMouseUp}
       />
-      <Button onClick={handleRead}>READ!!</Button>
+      <ButtonContainer>
+        <Button onClick={handleRead}>READ!!</Button>
+        <Button onClick={handleClear}>CLEAR</Button>
+      </ButtonContainer>
       {prediction !== null && (
         <div style={{ color: '#0f0', marginTop: '10px' }}>
           Prediction: {prediction}
