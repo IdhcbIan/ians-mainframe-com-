@@ -1,7 +1,7 @@
-PWD /home/ian/Documents/Coding_sync/Projects_ACT/ians-mainframe/src/Legos/Resume/Pt
+PWD /home/ian/Documents/Repos/ians-mainframe(com)/src/Legos/Resume/Pt
 INPUT /usr/share/texmf-dist/web2c/texmf.cnf
 INPUT /var/lib/texmf/web2c/pdftex/pdflatex.fmt
-INPUT /home/ian/Documents/Coding_sync/Projects_ACT/ians-mainframe/src/Legos/Resume/Pt/Ian_Resume_Pt.tex
+INPUT /home/ian/Documents/Repos/ians-mainframe(com)/src/Legos/Resume/Pt/Ian_Resume_Pt.tex
 OUTPUT Ian_Resume_Pt.log
 INPUT /usr/share/texmf-dist/tex/latex/base/article.cls
 INPUT /usr/share/texmf-dist/tex/latex/base/article.cls

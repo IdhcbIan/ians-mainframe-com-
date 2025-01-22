@@ -124,8 +124,12 @@ const ProjectsSection = styled(Section)`
 `
 
 const ProjectsTitle = styled.h2`
-  margin-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
   color: #f0f0f0;
+  font-size: 1.8rem;
+  border-bottom: 2px solid #333;
+  padding-bottom: 0.5rem;
+  width: 100%;
 `
 
 const ProjectsList = styled.ul`
@@ -138,36 +142,55 @@ const ProjectsList = styled.ul`
 
 const ProjectItem = styled.li`
   display: flex;
-  justify-content: flex-start;
   align-items: center;
-  margin-bottom: 10px;
-`
-
-const ProjectLink = styled.a`
-  text-decoration: none;
-  color: #d0d0d0;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  width: 100%;
-  padding: 0.75rem;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  padding: 1rem;
+  background-color: #222;
   border-radius: 8px;
   transition: all 0.2s ease;
-  
+
   &:hover {
     background-color: #2a2a2a;
-    color: #ffffff;
     transform: translateX(5px);
+  }
+`
+
+const ProjectName = styled.div`
+  font-weight: bold;
+  color: #e0e0e0;
+  font-size: 1.1rem;
+  flex: 1;
+`
+
+const ProjectButtonsContainer = styled.div`
+  display: flex;
+  gap: 12px;
+`
+
+const ProjectButton = styled.a`
+  text-decoration: none;
+  color: #e0e0e0;
+  padding: 8px 16px;
+  border-radius: 6px;
+  background-color: #333;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  
+  &:hover {
+    background-color: #444;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
   }
 
-  &::after {
-    content: '→';
-    margin-left: 10px;
-    transition: transform 0.2s ease;
-  }
-  
-  &:hover::after {
-    transform: translateX(5px);
+  img {
+    width: 16px;
+    height: 16px;
+    opacity: 0.9;
   }
 `
 
@@ -270,8 +293,45 @@ const AboutLink = styled(Link)`
   }
 `
 
+const ResumeContainer = styled.div`
+  position: relative;
+  display: inline-block;
+  width: 100%;
+`;
+
+const HoverBox = styled.div`
+  position: absolute;
+  top: 100%;
+  left: 0;
+  transform: none;
+  background-color: #2d2d2d;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  display: ${props => props.show ? 'flex' : 'none'};
+  gap: 1rem;
+  z-index: 100;
+`;
+
+const LanguageButton = styled.a`
+  text-decoration: none;
+  color: #ffffff;
+  background-color: #404040;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #505050;
+  }
+`;
+
 function App() {
   const [language, setLanguage] = useState('en');
+  const [showLanguages, setShowLanguages] = useState(false);
+
+  const enResumeUrl = "https://raw.githubusercontent.com/IdhcbIan/ians-mainframe-com-/master/src/Legos/Resume/En/Ian_Resume_En.pdf";
+  const ptResumeUrl = "https://raw.githubusercontent.com/IdhcbIan/ians-mainframe-com-/master/src/Legos/Resume/Pt/Ian_Resume_Pt.pdf";
 
   const handleLanguageChange = () => {
     setLanguage(prevLang => prevLang === 'en' ? 'pt' : 'en');
@@ -286,9 +346,19 @@ function App() {
       resumeLink: "View My Resume",
       projectsTitle: "Projects",
       projects: [
-        { name: "Neural Networks for IR Spectroscopy in Organic Chemistry", url: "https://raw.githubusercontent.com/USPCodeLabSanca/ML_Chem/master/Documentation/Documentation.pdf" },
-        { name: "Molecular Structure Prediction using Neural Networks", route: "/project2" }
+        { 
+          name: "Neural Networks for IR Spectroscopy in Organic Chemistry", 
+          summary: "https://raw.githubusercontent.com/USPCodeLabSanca/ML_Chem/master/Documentation/Documentation.pdf", 
+          code: "https://github.com/USPCodeLabSanca/ML_Chem" 
+        },
+        { 
+          name: "MNIST Classification with PyTorch and AWS SageMaker deployment", 
+          code: "https://github.com/IdhcbIan/MLP_MNIST" 
+        }
       ],
+      viewSummary: "View Summary",
+      viewCode: "View Code",
+      tryItOut: "Try it out!",
       blogLink: "Read My Blog",
       labLink: "Visit My Lab",
       socialLinks: "Find me on X.com and GitHub:",
@@ -301,13 +371,23 @@ function App() {
       welcome: "Olá! Eu sou Ian, Bem-vindo ao meu site pessoal!",
       tagline: "Conheça meus projetos e ideias nesta página!",
       aboutTitle: "Sobre Mim",
-      aboutText: "Olá! Sou um estudante de Matemática Aplicada e Ciência da Computação no ICMC USP, tenho como foco resolver problemas complexos e construir o futuro. Na universidade, me aprofundei em IA e ciência da computação. Principalmente, o uso de sistemas inteligentes para expandir a fronteira do conhecimento e das realizações humanas me fascina! Acredito profundamente na eficiência e simplicidade - execução rápida e melhorias iterativas nos levarão às estrelas. Conheça meus projetos e ideias nesta página!",
+      aboutText: "Sou um estudante de Matemática Aplicada e Ciência da Computação no ICMC USP, apaixonado por resolver problemas difíceis e construir o futuro. Na universidade desenvolvi grande interesse em IA e computação o que me levou a explorar o uso de sistemas mais inteligentes na expansão do conhecimento e das conquistas humanas. Acredito na eficiência e simplicidade, valorizando a execução rápida e melhorias iterativas para alcançar grandes feitos.",
       resumeLink: "Ver Meu Currículo",
       projectsTitle: "Projetos",
       projects: [
-        { name: "Redes Neurais para Espectroscopia IR em Química Orgânica", url: "https://raw.githubusercontent.com/USPCodeLabSanca/ML_Chem/master/Documentation/Documentation.pdf" },
-        { name: "Molecular Structure Prediction using Neural Networks", route: "/project2" }
+        { 
+          name: "Redes Neurais para Espectroscopia IR em Química Orgânica", 
+          summary: "https://raw.githubusercontent.com/USPCodeLabSanca/ML_Chem/master/Documentation/Documentation.pdf", 
+          code: "https://github.com/USPCodeLabSanca/ML_Chem" 
+        },
+        { 
+          name: "MNIST Classification with PyTorch and AWS SageMaker deployment", 
+          code: "https://github.com/IdhcbIan/MLP_MNIST" 
+        }
       ],
+      viewSummary: "Ver Resumo",
+      viewCode: "Ver Código",
+      tryItOut: "Experimente!",
       blogLink: "Leia Meu Blog",
       labLink: "Visite Meu Lab",
       socialLinks: "Me encontre no X.com e GitHub:",
@@ -340,15 +420,35 @@ function App() {
           <ProjectsList>
             {content[language].projects.map((project, index) => (
               <ProjectItem key={index}>
-                {project.url ? (
-                  <ProjectLink href={project.url} target="_blank" rel="noopener noreferrer">
-                    {project.name}
-                  </ProjectLink>
-                ) : (
-                  <ProjectLink as={Link} to={project.route}>
-                    {project.name}
-                  </ProjectLink>
-                )}
+                <ProjectName>{project.name}</ProjectName>
+                <ProjectButtonsContainer>
+                  {project.summary && (
+                    <ProjectButton 
+                      href={project.summary} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                    >
+                      {content[language].viewSummary}
+                    </ProjectButton>
+                  )}
+                  {!project.summary && (
+                    <ProjectButton 
+                      href="/lab" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                    >
+                      {content[language].tryItOut}
+                    </ProjectButton>
+                  )}
+                  <ProjectButton 
+                    href={project.code} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                  >
+                    {content[language].viewCode}
+                    <img src={githubLogo} alt="GitHub" style={{width: '16px', height: '16px'}} />
+                  </ProjectButton>
+                </ProjectButtonsContainer>
               </ProjectItem>
             ))}
           </ProjectsList>
@@ -364,7 +464,28 @@ function App() {
           <JustifiedText>{content[language].aboutText}</JustifiedText>
           <ProjectsList>
             <ProjectItem>
-              <AboutLink to="/resume">{content[language].resumeLink}</AboutLink>
+              <ResumeContainer 
+                onMouseEnter={() => setShowLanguages(true)}
+                onMouseLeave={() => setShowLanguages(false)}
+              >
+                <AboutLink as="span">{content[language].resumeLink}</AboutLink>
+                <HoverBox show={showLanguages}>
+                  <LanguageButton 
+                    href={enResumeUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    EN
+                  </LanguageButton>
+                  <LanguageButton 
+                    href={ptResumeUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    PT
+                  </LanguageButton>
+                </HoverBox>
+              </ResumeContainer>
             </ProjectItem>
             <ProjectItem>
               <AboutLink as="a" href="https://www.chess.com/member/ian_dhcb" target="_blank" rel="noopener noreferrer">
