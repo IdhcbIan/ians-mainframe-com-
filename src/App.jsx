@@ -6,6 +6,7 @@ import twitterLogo from './assets/twitter.png'
 import githubLogo from './assets/github.png'
 import styled, { createGlobalStyle } from 'styled-components'
 import { Link } from 'react-router-dom'
+import MyResume from './Legos/MyResume'
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -293,45 +294,8 @@ const AboutLink = styled(Link)`
   }
 `
 
-const ResumeContainer = styled.div`
-  position: relative;
-  display: inline-block;
-  width: 100%;
-`;
-
-const HoverBox = styled.div`
-  position: absolute;
-  top: 100%;
-  left: 0;
-  transform: none;
-  background-color: #2d2d2d;
-  padding: 1rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-  display: ${props => props.show ? 'flex' : 'none'};
-  gap: 1rem;
-  z-index: 100;
-`;
-
-const LanguageButton = styled.a`
-  text-decoration: none;
-  color: #ffffff;
-  background-color: #404040;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  transition: background-color 0.2s;
-
-  &:hover {
-    background-color: #505050;
-  }
-`;
-
 function App() {
   const [language, setLanguage] = useState('en');
-  const [showLanguages, setShowLanguages] = useState(false);
-
-  const enResumeUrl = "https://raw.githubusercontent.com/IdhcbIan/ians-mainframe-com-/master/src/Legos/Resume/En/Ian_Resume_En.pdf";
-  const ptResumeUrl = "https://raw.githubusercontent.com/IdhcbIan/ians-mainframe-com-/master/src/Legos/Resume/Pt/Ian_Resume_Pt.pdf";
 
   const handleLanguageChange = () => {
     setLanguage(prevLang => prevLang === 'en' ? 'pt' : 'en');
@@ -464,28 +428,7 @@ function App() {
           <JustifiedText>{content[language].aboutText}</JustifiedText>
           <ProjectsList>
             <ProjectItem>
-              <ResumeContainer 
-                onMouseEnter={() => setShowLanguages(true)}
-                onMouseLeave={() => setShowLanguages(false)}
-              >
-                <AboutLink as="span">{content[language].resumeLink}</AboutLink>
-                <HoverBox show={showLanguages}>
-                  <LanguageButton 
-                    href={enResumeUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    EN
-                  </LanguageButton>
-                  <LanguageButton 
-                    href={ptResumeUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    PT
-                  </LanguageButton>
-                </HoverBox>
-              </ResumeContainer>
+              <MyResume />
             </ProjectItem>
             <ProjectItem>
               <AboutLink as="a" href="https://www.chess.com/member/ian_dhcb" target="_blank" rel="noopener noreferrer">

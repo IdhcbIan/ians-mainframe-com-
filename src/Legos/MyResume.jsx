@@ -9,8 +9,8 @@ const ResumeContainer = styled.div`
 const HoverBox = styled.div`
   position: absolute;
   top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
+  transform: none;
   background-color: #2d2d2d;
   padding: 1rem;
   border-radius: 8px;
@@ -44,12 +44,13 @@ const MyResume = () => {
       onMouseEnter={() => setShowLanguages(true)}
       onMouseLeave={() => setShowLanguages(false)}
     >
-      <span>Resume</span>
+      <span>My Resume / Meu Currículo</span>
       <HoverBox show={showLanguages}>
         <LanguageButton 
           href={enResumeUrl}
           target="_blank"
           rel="noopener noreferrer"
+          download="Ian_Resume_En.pdf"
         >
           EN
         </LanguageButton>
@@ -57,6 +58,7 @@ const MyResume = () => {
           href={ptResumeUrl}
           target="_blank"
           rel="noopener noreferrer"
+          download="Ian_Resume_Pt.pdf"
         >
           PT
         </LanguageButton>
