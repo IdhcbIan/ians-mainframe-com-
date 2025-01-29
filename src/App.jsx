@@ -397,9 +397,8 @@ function App() {
                   )}
                   {!project.summary && (
                     <ProjectButton 
-                      href="/lab" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
+                      as={Link}
+                      to="/lab"
                     >
                       {content[language].tryItOut}
                     </ProjectButton>
