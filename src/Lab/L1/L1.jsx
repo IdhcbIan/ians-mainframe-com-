@@ -56,6 +56,7 @@ const L1 = () => {
   const [isHovering, setIsHovering] = useState(false)
   const [grid, setGrid] = useState(Array(GRID_SIZE).fill().map(() => Array(GRID_SIZE).fill(0)))
   const [prediction, setPrediction] = useState(null)
+  const [isFirstPrediction, setIsFirstPrediction] = useState(true)
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -140,7 +141,13 @@ const L1 = () => {
 
   const handleRead = async () => {
     try {
-      setPrediction('Loading...')
+      if (isFirstPrediction) {
+        setPrediction('Starting EC2...')
+        setIsFirstPrediction(false)
+      } else {
+        setPrediction('Loading...')
+      }
+      
       const flatGrid = grid.flat()
       
       const response = await fetch('https://of4e4p05kg.execute-api.sa-east-1.amazonaws.com/default/MNIST2/Predict', {

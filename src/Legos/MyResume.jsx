@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const ResumeContainer = styled.div`
   position: relative;
@@ -36,8 +37,8 @@ const LanguageButton = styled.a`
 const MyResume = () => {
   const [showLanguages, setShowLanguages] = useState(false);
 
-  const enResumeUrl = "https://raw.githubusercontent.com/IdhcbIan/ians-mainframe-com-/master/src/Legos/Resume/En/Ian_Resume_En.pdf";
-  const ptResumeUrl = "https://raw.githubusercontent.com/IdhcbIan/ians-mainframe-com-/master/src/Legos/Resume/Pt/Ian_Resume_Pt.pdf";
+  const enResumeUrl = "https://drive.google.com/file/d/1BrcdEzcFeVYeNginaybP3ZRx_HsZOxjD/view?usp=sharing";
+  const ptResumeUrl = "https://drive.google.com/file/d/1n9THilf-LRLiE2fil717CVfB7_dyGflh/view?usp=sharing";
 
   return (
     <ResumeContainer 
@@ -50,7 +51,6 @@ const MyResume = () => {
           href={enResumeUrl}
           target="_blank"
           rel="noopener noreferrer"
-          download="Ian_Resume_En.pdf"
         >
           EN
         </LanguageButton>
@@ -58,7 +58,6 @@ const MyResume = () => {
           href={ptResumeUrl}
           target="_blank"
           rel="noopener noreferrer"
-          download="Ian_Resume_Pt.pdf"
         >
           PT
         </LanguageButton>
