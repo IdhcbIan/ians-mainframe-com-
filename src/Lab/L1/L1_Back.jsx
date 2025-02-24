@@ -56,6 +56,7 @@ const L1 = () => {
   const [isHovering, setIsHovering] = useState(false)
   const [grid, setGrid] = useState(Array(GRID_SIZE).fill().map(() => Array(GRID_SIZE).fill(0)))
   const [prediction, setPrediction] = useState(null)
+  const [isFirstPrediction, setIsFirstPrediction] = useState(true)
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -138,8 +139,44 @@ const L1 = () => {
     drawGrid(ctx)
   }
 
-  const handleRead = () => {
-    setPrediction('Project is turned off')
+  const handleRead = async () => {
+    try {
+      if (isFirstPrediction) {
+        setPrediction('Starting EC2...')
+        setIsFirstPrediction(false)
+      } else {
+        setPrediction('Loading...')
+      }
+      
+      const flatGrid = grid.flat()
+      
+      const response = await fetch('https://of4e4p05kg.execute-api.sa-east-1.amazonaws.com/default/MNIST2/Predict', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ data: flatGrid }) // Send the flattened grid data
+      })
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+
+      const data = await response.json()
+      console.log('API Response:', data)
+      
+      // Handle the prediction response
+      if (data.body && data.body.prediction !== undefined) {
+        setPrediction(data.body.prediction)
+      } else if (data.prediction !== undefined) {
+        setPrediction(data.prediction)
+      } else {
+        throw new Error('Invalid response format from API')
+      }
+    } catch (error) {
+      console.error('Error reading digit:', error)
+      setPrediction(`Error: ${error.message}`)
+    }
   }
 
   return (

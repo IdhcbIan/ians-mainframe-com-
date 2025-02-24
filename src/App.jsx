@@ -318,6 +318,10 @@ function App() {
         { 
           name: "MNIST Classification with PyTorch and AWS SageMaker deployment", 
           code: "https://github.com/IdhcbIan/MLP_MNIST" 
+        },
+        {
+          name: "Training Drones with Deep Reinforcement Learning on MuJoCo Physics simulators",
+          code: "https://github.com/IdhcbIan/Mujoco_Q_Learning"
         }
       ],
       viewSummary: "View Summary",
@@ -347,6 +351,10 @@ function App() {
         { 
           name: "MNIST Classification with PyTorch and AWS SageMaker deployment", 
           code: "https://github.com/IdhcbIan/MLP_MNIST" 
+        },
+        {
+          name: "Treinamento de Drones com Deep Reinforcement Learning no simulador de Física MuJoCo",
+          code: "https://github.com/IdhcbIan/Mujoco_Q_Learning"
         }
       ],
       viewSummary: "Ver Resumo",
@@ -395,7 +403,7 @@ function App() {
                       {content[language].viewSummary}
                     </ProjectButton>
                   )}
-                  {!project.summary && (
+                  {!project.summary && index !== 2 && (
                     <ProjectButton 
                       as={Link}
                       to="/lab"
