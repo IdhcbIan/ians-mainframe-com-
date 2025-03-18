@@ -37,8 +37,8 @@ const LanguageButton = styled.a`
 const MyResume = () => {
   const [showLanguages, setShowLanguages] = useState(false);
 
-  const enResumeUrl = "https://drive.google.com/file/d/1BrcdEzcFeVYeNginaybP3ZRx_HsZOxjD/view?usp=sharing";
-  const ptResumeUrl = "https://drive.google.com/file/d/1n9THilf-LRLiE2fil717CVfB7_dyGflh/view?usp=sharing";
+  const enResumeUrl = "https://drive.google.com/file/d/16OGK6lTxupc-qOe3ut8ZTJF2Kdlw3o4g/view?usp=sharing";
+  const ptResumeUrl = "https://drive.google.com/file/d/1GxEk9kXGJs5Cpvqxsn0zXOvWaOFa99G_/view?usp=sharing";
 
   return (
     <ResumeContainer 
